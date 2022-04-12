@@ -14,7 +14,7 @@ app.get("/", (req,res) => {
 app.get('/user', usersController.getUsers)
 
 app.get("/user/:id", usersController.getOneUser)
-app.post('/user', usersController.makeOneActivity)
+app.post('/user', usersController.makeOnePerson)
 
 
 app.put('/todos/:id', (req, res) => {
