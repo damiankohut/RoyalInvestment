@@ -2,13 +2,15 @@
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
+
+ require('dotenv');
  module.exports = {
   development: {
     client: 'pg',
     connection: {
-      database: process.env.DB_NAME || 'royal_investments',
-      user:     process.env.DB_USER || 'postgres',
-      password: process.env.DB_PASS || 'damian'
+      database: 'royal_investments',
+      user: 'postgres',
+      password: 'damian'
     }
   },
   production: {
@@ -16,13 +18,6 @@
     connection: {
       connectionString: process.env.DATABASE_URL,
       ssl: {rejectUnauthorized: false}
-    },
-    pool: {
-      min: 2,
-      max: 10
-    },
-    migrations: {
-      tableName: 'knex_migrations'
     }
   }
 };
