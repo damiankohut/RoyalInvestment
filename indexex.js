@@ -7,6 +7,7 @@ const { application_name } = require("pg/lib/defaults")
 
 const app = express()
 app.use(express.json())
+
 app.set('view-engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
 app.use('/public', express.static('public'));
@@ -17,9 +18,25 @@ app.get("/", (req,res) => {
     res.render('loginPage.ejs')
 })
 
+// app.get("/", (req,res) => {
+//     // res.send("hello")
+//      res.json(req.body)
+// })
+app.get('/user', usersController.getUsers)
+
+app.get("/user/:id", usersController.getOneUser)
+
+app.post('/api/user', (req,res) => {
+    res.json(req.body)
+    // res.send("hello")
+})
+
+
+
 app.get('/signupPage', (req, res) => {
     res.render('signupPage.ejs')
 })
+
 
 app.get('/home', (req, res) => {
     const {email, password} = req.body;
@@ -46,7 +63,10 @@ app.post('/signupPage', async (req, res) => {
 // app.post('/user', usersController.makeOnePerson)
 
 
+
+
+
 // Add server listen call here
 app.listen(PORT, () => {
-    console.log("List of todos server")
+    console.log(`List of todos server ${PORT}`)
 })

@@ -3,7 +3,6 @@
  * @type { Object.<string, import("knex").Knex.Config> }
  */
 
- require('dotenv');
  module.exports = {
   development: {
     client: 'pg',
