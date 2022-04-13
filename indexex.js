@@ -21,13 +21,7 @@ app.put('/todos/:id', (req, res) => {
  res.send("send todos")
 })
 
-app.put("/todos/:id/complete", (req, res) => {
-    res.send("send todos")
-})
 
-app.delete('/todos/:id', (req, res) => {
- res.send("delete todos")
-})
 // Add server listen call here
 app.listen(PORT, () => {
     console.log("List of todos server")
