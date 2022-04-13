@@ -18,6 +18,18 @@ app.get("/", (req,res) => {
     res.render('loginPage.ejs')
 })
 
+app.get("/test", async (req,res)=> {
+    const x = await pool.query(`Select * from public.user`).then(results => { return results.rows})
+    res.status(200).json(x)
+})
+
+app.get('/loginpage', (req, res) => {
+    res.render('signupPage.ejs')
+})
+
+app.get('/market', (req, res) => {
+    res.render('market.ejs')
+})
 // app.get("/", (req,res) => {
 //     // res.send("hello")
 //      res.json(req.body)
@@ -57,6 +69,11 @@ app.post('/signupPage', async (req, res) => {
     res.redirect('/')
 })
 
+app.post('/signupPage', async (req, res) => {
+
+    res.redirect('/')
+})
+
 // app.get('/user', usersController.getUsers)
 
 // app.get("/user/:id", usersController.getOneUser)
@@ -65,8 +82,8 @@ app.post('/signupPage', async (req, res) => {
 
 
 
-
 // Add server listen call here
 app.listen(PORT, () => {
     console.log(`List of todos server ${PORT}`)
 })
+
