@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/public/homepage.css" />
+    <title>Royal Investments</title>
+</head>
+<header>
+    <div id = "topbar">
+<h1>Market</h1>
+<h1>Home</h1>
+    </div>
+</header>
+<body>
+<section id = "welcome">
+    <h2>welcome User</h2>
+</section>
+<form action = "/api/user" method ="POST">
+<input name="first" placeholder="first name" type = "text">
+<input name="email" placeholder="Email" type = "text">
+<input name="password" placeholder="Password" type = "text">
+<button type = "submit">Submit</button>
+</form>
+<div>
+<form></form>
+</div>
+<div id="sub-heading">
+    <h3>Portfolio</h3>
+</div>
+<div id = "hold-stocks">
+<div id="stocks">stock1</div>
+<div id="stocks">stock2</div>
+</div>
+<br>
+<h3>Some Stocks that may interest You</h3>
+<div id = "hold-stocks">
+    <div id="filledstocks">stock1</div>
+    <div id="filledstocks">stock2</div>
+</div>
+</body>
+</html>

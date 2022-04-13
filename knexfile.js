@@ -10,7 +10,7 @@
     connection: {
       database: 'royal_investments',
       user: 'postgres',
-      password: 'damian'
+      password: 'Parnasala1!'
     }
   },
   production: {

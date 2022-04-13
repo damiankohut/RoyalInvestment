@@ -1,0 +1,45 @@
+body {
+    background-color: #00ac96;
+}
+
+.content {
+    margin: 8%;
+    background-color: #fff;
+    padding: 4rem 1rem;
+    border-radius: 20px;
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.05);
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    border-color: #00ac96 !important;
+    border-style: solid !important;
+    border-width: 0 0 1px 0 !important;
+    padding: 2px !important;
+    color: #495057;
+    height: auto;
+    background-color: #fff;
+    background-clip: padding-box;
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    outline: 0;
+    box-shadow: none;
+}
+
+.btn-class {
+    border-color: #00ac96;
+    background-color: #fff;
+    margin: 20px;
+}
+
+.btn-class:hover {
+    border-color: #00ac96;
+    background-color: #00ac96;
+}
