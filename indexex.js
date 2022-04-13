@@ -14,6 +14,8 @@ app.use('/public', express.static('public'));
 
 const PORT = 3000
 
+
+//ROUTES
 app.get("/", (req,res) => {
     res.render('loginPage.ejs')
 })
@@ -69,6 +71,7 @@ app.post('/signupPage', async (req, res) => {
     res.redirect('/')
 })
 
+<<<<<<< HEAD
 app.post('/signupPage', async (req, res) => {
 
     res.redirect('/')
@@ -81,6 +84,8 @@ app.post('/signupPage', async (req, res) => {
 
 
 
+=======
+>>>>>>> 7a97888f8c5ebf83082460def0df3a0d38bef1bf
 
 // Add server listen call here
 app.listen(PORT, () => {
