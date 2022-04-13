@@ -14,24 +14,11 @@ app.use('/public', express.static('public'));
 
 const PORT = 3000
 
+
+//ROUTES
 app.get("/", (req,res) => {
     res.render('loginPage.ejs')
 })
-
-// app.get("/", (req,res) => {
-//     // res.send("hello")
-//      res.json(req.body)
-// })
-app.get('/user', usersController.getUsers)
-
-app.get("/user/:id", usersController.getOneUser)
-
-app.post('/api/user', (req,res) => {
-    res.json(req.body)
-    // res.send("hello")
-})
-
-
 
 app.get('/signupPage', (req, res) => {
     res.render('signupPage.ejs')
@@ -56,14 +43,6 @@ app.post('/signupPage', async (req, res) => {
     const newUser = await pool.query('INSERT INTO public.user (name, email, password, account_balance) VALUES ($1, $2, $3, $4) RETURNING *', [name, email, password, 1500]).then(result => result.rows);
     res.redirect('/')
 })
-
-// app.get('/user', usersController.getUsers)
-
-// app.get("/user/:id", usersController.getOneUser)
-// app.post('/user', usersController.makeOnePerson)
-
-
-
 
 
 // Add server listen call here
