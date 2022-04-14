@@ -21,7 +21,7 @@ button.addEventListener('click', async () => {
     .then(res => res.json())
     .then(data => data["Global Quote"]["05. price"]);
     console.log(price)
-     fetch('http://localhost:3000/market', {
+     fetch('http://localhost:3000/home', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',

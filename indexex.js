@@ -1,6 +1,6 @@
 const express = require("express")
 const pool = require("./dbconfig")
-
+const path = require('path')
 const usersController = require("./controllers/usersControllers")
 const { application_name } = require("pg/lib/defaults")
 
@@ -20,10 +20,10 @@ app.get("/", (req,res) => {
     res.render('loginPage.ejs')
 })
 
-app.get("/test", async (req,res)=> {
-    const x = await pool.query(`Select * from public.user`).then(results => { return results.rows})
-    res.status(200).json(x)
-})
+// app.get("/test", async (req,res)=> {
+//     const x = await pool.query(`Select * from public.user`).then(results => { return results.rows})
+//     res.status(200).json(x)
+// })
 
 app.get('/loginpage', (req, res) => {
     res.render('signupPage.ejs')
@@ -36,15 +36,14 @@ app.get('/market', (req, res) => {
 //     // res.send("hello")
 //      res.json(req.body)
 // })
+app.get("/home", (req,res) => {
+    console.log(req.body)
+    res.status(200)
+    res.render('home.ejs')
+})
 app.get('/user', usersController.getUsers)
 
 app.get("/user/:id", usersController.getOneUser)
-
-app.post('/api/user', (req,res) => {
-    res.json(req.body)
-    // res.send("hello")
-})
-
 
 
 app.get('/signupPage', (req, res) => {
@@ -65,13 +64,26 @@ app.get('/home', (req, res) => {
     // }
 })
 
+app.post('/home', (req, res) => {
+    const { stockName, price }= req.body
+    const buystock =  pool.query(`INSERT INTO public.user_stocks (tickername, quantity_of_stocks, buy_price, sell_price) VALUES ($1,$2,$3,$4) returning *`,[stockName, 5, price, null] ).then(res => res.rows)
+   res.status(200).json(buystock)
+})
+
+
+app.post('/api/user', (req,res) => {
+    res.json(req.body)
+    // res.send("hello")
+})
+
+
+
 app.post('/signupPage', async (req, res) => {
     const {name, email, password} = req.body
     const newUser = await pool.query('INSERT INTO public.user (name, email, password, account_balance) VALUES ($1, $2, $3, $4) RETURNING *', [name, email, password, 1500]).then(result => result.rows);
     res.redirect('/')
 })
 
-<<<<<<< HEAD
 app.post('/signupPage', async (req, res) => {
 
     res.redirect('/')
@@ -84,8 +96,6 @@ app.post('/signupPage', async (req, res) => {
 
 
 
-=======
->>>>>>> 7a97888f8c5ebf83082460def0df3a0d38bef1bf
 
 // Add server listen call here
 app.listen(PORT, () => {
