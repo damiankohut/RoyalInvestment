@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -27,12 +27,19 @@
     <h3>Portfolio</h3>
 </div>
 
+
+
+
+
+
+
+<br><br>
 <div id = "hold-stocks">
 <div id="stocks">
     <div class = "box" id = "stockName">amc</div>
-    <div class = "box" id = "bought">$2.00</div>
-    <div class = "box" id = "currentPrice">$4.00</div>
-    <div class = "box" id = "percentChange">%2</div>
+    <div class = "box" id = "bought"></div>
+    <div class = "box" id = "currentPrice"></div>
+    <div class = "box" id = "percentChange"></div>
     <div id = "buttons">
  <button class = "boxe" id = "sell">sell</button>
  <button class = "boxe" id = "buy">buy</button>
@@ -40,6 +47,118 @@
 </div>
 
 </div>
+
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./public/market.css" />
+
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row gutters">
+        <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+        <div class="card h-100">
+            <!-- ====================================================================== -->
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4 col-xl-3">
+                        <div class="card bg-c-blue order-card">
+                            <div class="card-block">
+                                <h6 class="m-b-20">Orders Received</h6>
+                                <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>486</span></h2>
+                                <p class="m-b-0">Completed Orders<span class="f-right">351</span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            <!-- ================================================================================ -->
+        </div>
+        </div>
+        <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+        <div class="card h-100">
+            <div class="card-body">
+                <div class="row gutters">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <h6 class="mb-2 text-primary">Personal Details</h6>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" class="form-control" id="fullName" placeholder="Enter full name">
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="eMail">Email</label>
+                            <input type="email" class="form-control" id="eMail" placeholder="Enter email ID">
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="text" class="form-control" id="phone" placeholder="Enter phone number">
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="website">Website URL</label>
+                            <input type="url" class="form-control" id="website" placeholder="Website url">
+                        </div>
+                    </div>
+                </div>
+                <div class="row gutters">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <h6 class="mt-3 mb-2 text-primary">Address</h6>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="Street">Street</label>
+                            <input type="name" class="form-control" id="Street" placeholder="Enter Street">
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="ciTy">City</label>
+                            <input type="name" class="form-control" id="ciTy" placeholder="Enter City">
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="sTate">State</label>
+                            <input type="text" class="form-control" id="sTate" placeholder="Enter State">
+                        </div>
+                    </div>
+                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                        <div class="form-group">
+                            <label for="zIp">Zip Code</label>
+                            <input type="text" class="form-control" id="zIp" placeholder="Zip Code">
+                        </div>
+                    </div>
+                </div>
+                <div class="row gutters">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="text-right">
+                            <button type="button" id="submit" name="submit" class="btn btn-secondary">Cancel</button>
+                            <button type="button" id="submit" name="submit" class="btn btn-primary">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+ 
 
 </body>
 </html>

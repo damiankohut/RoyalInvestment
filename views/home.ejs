@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="./public/homepage.css" />
+    <link rel="stylesheet" type="text/css" href="../public/homepage.css" />
 
     <title>Royal Investments</title>
 </head>
@@ -17,7 +17,13 @@
 </header>
 <body>
 <section id = "welcome">
-    <h2>welcome User</h2>
+    <h2>welcome User <%= name %> </h2>
+   testing <% name %>
+   <br>
+   <% for (let icount=0; icount < name.length; icount++) { %> 
+<%= name[icount].name %> <br>
+  <% } %> 
+  <h1>hello</h1>
 </section>
 
 <div>
@@ -26,7 +32,9 @@
 <div id="sub-heading">
     <h3>Portfolio</h3>
 </div>
+
 <div id = "hold-stocks">
+<div id = "Portfolio"></div>
 <div id="stocks">stock1</div>
 <div id="stocks">stock2</div>
 </div>

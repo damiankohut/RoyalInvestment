@@ -3,6 +3,7 @@ const pool = require("./dbconfig")
 const path = require('path')
 const usersController = require("./controllers/usersControllers")
 const { application_name } = require("pg/lib/defaults")
+// const { default: knex } = require("knex")
 
 
 const app = express()
@@ -13,9 +14,15 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/public', express.static('public'));
 
 const PORT = 3000
-
-
-//ROUTES
+// const knex = require('knex')({
+//     client: 
+//     user: 'postgres',
+// database: 'royal_investments',
+// password: 'damian',                  // If you have a postgres password, write it here
+// host: 'localhost',
+// port: 5432
+// //ROUTES
+// })
 app.get("/", (req,res) => {
     res.render('loginPage.ejs')
 })
@@ -26,7 +33,7 @@ app.get("/", (req,res) => {
 // })
 
 app.get('/loginpage', (req, res) => {
-    res.render('signupPage.ejs')
+    res.render('loginPage.ejs')
 })
 
 app.get('/market', (req, res) => {
@@ -36,11 +43,18 @@ app.get('/market', (req, res) => {
 //     // res.send("hello")
 //      res.json(req.body)
 // })
-app.get("/home", (req,res) => {
-    console.log(req.body)
-    res.status(200)
-    res.render('home.ejs')
+app.get("/home", async (req,res) => {
+    // const x = await pool.query('SELECT * from public.user_stocks ').then(res => res.rows)
+    // console.log(req.body)
+    // knex.select().from("user").then((results) => {
+const x = await pool.query(' select * from public.user ').then((results) => { console.log(results.rows)
+       res.render('home.ejs', {name: results.rows})
 })
+    // })
+ 
+    // res.send(x)
+})
+
 app.get('/user', usersController.getUsers)
 
 app.get("/user/:id", usersController.getOneUser)

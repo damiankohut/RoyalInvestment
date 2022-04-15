@@ -4,6 +4,7 @@ let button = document.getElementById('button');
 
 button.addEventListener('click', async () => {
     sendPrice();
+    // getPortfolio()
 })
 
 // async function getPrice() {
@@ -37,4 +38,10 @@ button.addEventListener('click', async () => {
     console.log("price")
 }
 
-// const price = getPrice();
+
+// function getPortfolio(){
+//     let portfolio = fetch('http://localhost:3000/home').then(res => res.json()).then(data => data)
+// console.log("hello")
+// return portfolio
+// }
+// getPortfolio()
