@@ -3,6 +3,9 @@ const pool = require("./dbconfig")
 const path = require('path')
 const usersController = require("./controllers/usersControllers")
 const { application_name } = require("pg/lib/defaults")
+const session = require("express-session")
+const flash = require("express-flash")
+const bcrypt = require("bcrypt")
 // const { default: knex } = require("knex")
 
 
@@ -11,6 +14,16 @@ app.use(express.json())
 
 app.set('view-engine', 'ejs');
 app.use(express.urlencoded({ extended: false }));
+app.use(
+    session({
+      secret: 'secret',
+      resave: false,
+            saveUninitialized: false
+    })
+  );
+
+app.use(flash())
+
 app.use('/public', express.static('public'));
 
 const PORT = 3000
@@ -27,32 +40,23 @@ app.get("/", (req,res) => {
     res.render('loginPage.ejs')
 })
 
-// app.get("/test", async (req,res)=> {
-//     const x = await pool.query(`Select * from public.user`).then(results => { return results.rows})
-//     res.status(200).json(x)
-// })
+app.get('/signupPage', (req, res) => {
+    res.render('signupPage.ejs')
+})
 
 app.get('/loginpage', (req, res) => {
     res.render('loginPage.ejs')
 })
 
+app.get("/home", async (req,res) => {
+
+const x = await pool.query(' select * from public.user ').then((results) => { console.log(results.rows[0])
+       res.render('home.ejs', {name: results.rows[0].name})
+})
+
 app.get('/market', (req, res) => {
     res.render('market.ejs')
 })
-// app.get("/", (req,res) => {
-//     // res.send("hello")
-//      res.json(req.body)
-// })
-app.get("/home", async (req,res) => {
-    // const x = await pool.query('SELECT * from public.user_stocks ').then(res => res.rows)
-    // console.log(req.body)
-    // knex.select().from("user").then((results) => {
-const x = await pool.query(' select * from public.user ').then((results) => { console.log(results.rows)
-       res.render('home.ejs', {name: results.rows})
-})
-    // })
- 
-    // res.send(x)
 })
 
 app.get('/user', usersController.getUsers)
@@ -60,9 +64,7 @@ app.get('/user', usersController.getUsers)
 app.get("/user/:id", usersController.getOneUser)
 
 
-app.get('/signupPage', (req, res) => {
-    res.render('signupPage.ejs')
-})
+
 
 
 app.get('/home', (req, res) => {
@@ -93,14 +95,68 @@ app.post('/api/user', (req,res) => {
 
 
 app.post('/signupPage', async (req, res) => {
-    const {name, email, password} = req.body
-    const newUser = await pool.query('INSERT INTO public.user (name, email, password, account_balance) VALUES ($1, $2, $3, $4) RETURNING *', [name, email, password, 1500]).then(result => result.rows);
-    res.redirect('/')
-})
+    let { name, email, password } = req.body;
+
+    let errors = [];
+  
+    console.log({
+      name,
+      email,
+      password,
+    });
+  
+    if (!name || !email || !password) {
+      errors.push({ message: "Please enter all fields" });
+    }
+  
+    if (password.length < 6) {
+      errors.push({ message: "Password must be a least 6 characters long" });
+    }
+  
+    if (errors.length > 0) {
+      res.render("register", { errors, name, email, password });
+    } else {
+      hashedPassword = await bcrypt.hash(password, 10);
+      console.log(hashedPassword);
+      // Validation passed
+      pool.query(
+        `SELECT * FROM public.user
+          WHERE email = $1`,
+        [email],
+        (err, results) => {
+          if (err) {
+            console.log(err);
+          }
+          console.log(results.rows);
+  
+          if (results.rows.length > 0) {
+            return res.render("register", {
+              message: "Email already registered"
+            });
+          } else {
+            pool.query(
+                `INSERT INTO public.user (name, email, password, account_balance)
+                VALUES ($1, $2, $3, 1500)
+                  RETURNING id, password`,
+              [name, email, hashedPassword],
+              (err, results) => {
+                if (err) {
+                  throw err;
+                }
+                console.log(results.rows);
+                req.flash("success_msg", "You are now registered. Please log in");
+                res.redirect("/loginpage");
+              }
+            );
+          }
+        }
+      );
+    }
+  });
 
 app.post('/signupPage', async (req, res) => {
 
-    res.redirect('/')
+    res.redirect('')
 })
 
 // app.get('/user', usersController.getUsers)
