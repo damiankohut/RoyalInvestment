@@ -18,19 +18,22 @@
             </div>
             <div class="col-md-6">
                 <h3 class="signin-text mb-3">Sign Up</h3>
+                <p>Already registered? <a href="/users/login">Log In</a></p>
+
                 <ul>
                     <% if(typeof errors != 'undefined') {%> <% errors.forEach(error =>{ %> 
                     <li><%= error.message %></li>
                 <% }) %> <%} %>
                 </ul>
-                <form action="/signupPage" method="POST">
+    
+                <form action="/users/signup" method="POST">
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input type="name" name="name" class="form-control" id="userName" required>
+                        <input type="name" name="name" class="form-control" id="name" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" name="email" class="form-control" id="userEmail" required>
+                        <input type="email" name="email" class="form-control" id="email" required>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
@@ -38,7 +41,7 @@
                     </div>
                     <div class="form-group">
                         <label for="password-repeat">Repeat Password</label>
-                        <input type="password" name="password-repeat" class="form-control" required>
+                        <input type="password" name="password2" class="form-control" id="password2" required>
                     </div>
                     <button type="submit" class="btn btn-class" id="signUpButton">Sign Up</button>
                 </form>

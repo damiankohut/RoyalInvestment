@@ -2,6 +2,10 @@ const API_key = "9D9QUG0FRKAE9VJ8";
 let stock = 'AAPL'
 let button = document.getElementById('button');
 
+// fetch('http://localhost:3000/users/home')
+// .then(res => res.json())
+// .then(data => console.log(data))
+
 button.addEventListener('click', async () => {
     sendPrice();
     // getPortfolio()
@@ -22,7 +26,7 @@ button.addEventListener('click', async () => {
     .then(res => res.json())
     .then(data => data["Global Quote"]["05. price"]);
     console.log(price)
-     fetch('http://localhost:3000/home', {
+     fetch('http://localhost:3000/users/home', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',

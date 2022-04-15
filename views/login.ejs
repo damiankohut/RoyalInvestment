@@ -18,15 +18,21 @@
             </div>
             <div class="col-md-6">
                 <h3 class="signin-text mb-3">Sign In</h3>
-                
+
                 <ul>
                     <% if (typeof errors != 'undefined') { %> <% errors.forEach(error => { %>
                     <li><%= error.message %></li>
                     <% }) %> <% } %>
                   </ul>
+                  <ul>
+                    <% if (messages.error) { %>
+                      <li><%= messages.error %> </li>
 
-                <p class="signin-link">Don't have an account yet? <a href="./signupPage">Sign Up</a></p>
-                <form action="/home" method="GET">
+                    <% } %>
+                  </ul>
+
+                <p class="signin-link">Don't have an account yet? <a href="/users/signup">Sign Up</a></p> 
+                <form action="/users/login" method="POST">
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="email" name="email" class="form-control" required>
