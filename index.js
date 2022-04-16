@@ -105,8 +105,8 @@ app.post('/users/login', passport.authenticate('local', {
     failureFlash: true
 }))
 
-app.post('/users/home', (req, res) => {
-
+app.post('/users/home', async (req, res) => {
+let {stockName, } =req.body;
 })
 
 

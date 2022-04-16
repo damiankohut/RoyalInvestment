@@ -13,12 +13,28 @@ function getstock(stocky){
         return response.json()
     }).then(function(data){ console.log(data["Global Quote"]["05. price"]), console.log(data["Global Quote"]["01. symbol"]), console.log(console.log(data))
  document.getElementById('stockInfo').innerHTML = `
- <h5>${data["Global Quote"]["01. symbol"]}</h5>
- <h4 id="text">${data["Global Quote"]["05. price"]}</h4>
- <button id = "text"> buy / Sell </button>`
+ <div class="container" style="padding-left: 0px;padding-right: 0px;">
+ <div class="row" style="width: 1500px;margin-right: 0px;margin-left: 0px;">
+ <div class="col-md-4 col-xl-3" style="">
+     <div class="card bg-c-blue order-card">
+         <div class="card-block">
+             <h6 class="m-b-20" id="">${data["Global Quote"]["01. symbol"]}</h6>
+             <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>${data["Global Quote"]["05. price"]}</span></h2>
+             <p class="m-b-0"><button id="text"> Buy </button><span class="f-right"><label for="tentacles">Number of stocks:</label>
+             <input type="number" id="tentacles" name="tentacles" min="10" max="100"></span></p>
+             <p class="m-b-0"><button id="text"> Sell </button><span class="f-right"><label for="tentacles">Number of stocks:</label>
+             <input type="number" id="tentacles" name="tentacles" min="10" max="100"></span></p>
+         </div>
+     </div>
+ </div>
+</div>
+`
 })
 }
-//       
+//        <h5>${data["Global Quote"]["01. symbol"]}</h5>
+//  <h4 id="text">${data["Global Quote"]["05. price"]}</h4>
+//  <button id = "text"> buy / Sell </button>
+
 //         document.getElementById('stockInfo').innerHTML = `
 //         <h5>${data["Global Quote"]["01. symbol"]}</h5>
 //         <p id="text">${["Global Quote"]["05. price"}</p>
@@ -28,33 +44,56 @@ function getstock(stocky){
 
 
 const API_key = "9D9QUG0FRKAE9VJ8";
-let stock = 'AAPL'
-let button = document.getElementById('button');
 
+let tickButton = document.getElementById('tick-button');
+let tickerSearch = document.getElementById('ticker-search');
+let cardInfo = document.getElementById('card-text', renderCardText)
 // fetch('http://localhost:3000/users/home')
 // .then(res => res.json())
 // .then(data => console.log(data))
 
-button.addEventListener('click', async () => {
-    sendPrice();
+tickButton.addEventListener('click', () => {
+    getPrice(tickerSearch.value);
     // getPortfolio()
+
 })
 
-// async function getPrice() {
-//     let price = await fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stock}&apikey=${API_key}`)
+async function renderCardText(stock) {
+    const url = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol="
+    let price = await fetch(url+ stock +"&apikey=" + API_key)
+    .then(res => res.json())
+    .then(data => {
+        return data["Global Quote"]["02. open"]["03. high"]["04. low"]["04. low"]["05. price"]["06. volume"]
+     
+});
+}
+
+
+// async function getPrice(stock) {
+//     const url = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol="
+//     let price = await fetch(url+ stock +"&apikey=" + API_key)
 //     .then(res => res.json())
-//     .then(data => data["Global Quote"]["05. price"]);
-//      return price;
+//     .then(data => {
+//         return data["Global Quote"]["05. price"]
+//       console.log(price)
+// });
 // }
+
+
 // async function getprice(){
 
 // }
 // let price = getprice()
- async function sendPrice () {
-    let price = await fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stock}&apikey=${API_key}`)
+ async function getPrice(stock) {
+    const url = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol="
+    let price = await fetch(url+ stock +"&apikey=" + API_key)
     .then(res => res.json())
-    .then(data => data["Global Quote"]["05. price"]);
+    .then(data => { 
+       return data["Global Quote"]["05. price"]
+        
+    });
     console.log(price)
+
      fetch('http://localhost:3000/users/home', {
         method: 'POST',
         headers: {
@@ -68,8 +107,10 @@ button.addEventListener('click', async () => {
     })
     .then(res => res.json())
     .then(data => console.log(data));
-    console.log("price")
+    
 }
+
+
 
 
 // function getPortfolio(){

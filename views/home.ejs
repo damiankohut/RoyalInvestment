@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
     <title>Document</title>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="../public/homepage.css">
@@ -18,40 +20,57 @@
         <li> <%= stock.tickername %> </li>
    <% }) %>   
     </ul>
+<!-- ======================================searchbar========================================= -->
 
-    <!-- <h6 style="width: 150px; margin-bottom: 0px; ">Search for stock</h6>
-    <form id="form" onsubmit="return false" style="width: 400px; display: flex;">
-        <input type="text" id="code2" name="code" value=""><br>
-        <input id = "submit2" type="submit" value="Search">
-      </form> 
-      <p id = "stockInfo"></p> -->
 
 
 
       <!-- ============================my card for search================== -->
-<!-- <div class="container">
-    ============================= card for search=============
+<div class="container">
+    <h6 style="width: 150px; margin-bottom: 0px; ">Search for stock</h6>
+    <form id="form" onsubmit="return false" style="width: 400px; display: flex;">
+        <input type="text" id="code2" name="code" value=""><br>
+        <input id = "submit2" type="submit" value="Search">
+      </form> 
+      <p id = "stockInfo"></p>
     <div class="row">
         <div class="col-md-4 col-xl-3">
             <div class="card bg-c-blue order-card">
                 <div class="card-block">
-                    <h6 class="m-b-20">Orders Received</h6>
+                    <h6 class="m-b-20" id =>Orders Received</h6>
                     <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>486</span></h2>
                     <p class="m-b-0">Completed Orders<span class="f-right">351</span></p>
                 </div>
             </div>
         </div>
 	</div>
-</div> -->
+</div>
+<!-- ========================================end of code for search bar properties ==================== -->
+
+
     <!-- BUY FEATURE -->
     <!-- need to create a search bar to get the tickname from the user -->
-    <!-- use dom manipulation to get the value from the search in the apidata.js file -->
-    <!-- fetch to the outside api which is alphavantage using the url in the file and instead of {stock} we need to search on the value from the search bar ablove -->
-    <!-- send the data we recieve from the outside api to our server in the backend -->
+    <!-- <div class="input-group">
+        <input id="ticker-search" type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+        <button type="button" class="btn btn-outline-primary" id="tick-button">search</button>
+      </div> -->
+       <br></br>
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">More Info</h5>
+          <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+          <p id="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          <button  class="buy">buy</a>
+          <button  class="sell">sell</a>
+        </div>
+      </div>
+    
+    <!-- send the data we recieve from the outside api to our server in the backend after a person buys-->
     <!-- the server will then send that data to the database so it will make note of who bought what stock at what price -->
     <!-- change the account balance to how many stocks were bought * at what price  -->
 
     <!-- SELL FEATURE -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="../public/apidata.js" type="text/javascript"></script>
 </body>
 </html>
