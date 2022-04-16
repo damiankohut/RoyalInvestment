@@ -1,3 +1,32 @@
+window.addEventListener('DOMContentLoaded', () => {
+    const work = document.getElementById("submit2");
+    work.addEventListener('click', stockFinder )
+   })
+   function stockFinder() {
+    const input2 = document.getElementById('code2');
+    getstock(input2.value)
+}
+
+function getstock(stocky){
+    fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stocky}&apikey=9D9QUG0FRKAE9VJ8`)
+    .then(function(response){
+        return response.json()
+    }).then(function(data){ console.log(data["Global Quote"]["05. price"]), console.log(data["Global Quote"]["01. symbol"]), console.log(console.log(data))
+ document.getElementById('stockInfo').innerHTML = `
+ <h5>${data["Global Quote"]["01. symbol"]}</h5>
+ <h4 id="text">${data["Global Quote"]["05. price"]}</h4>
+ <button id = "text"> buy / Sell </button>`
+})
+}
+//       
+//         document.getElementById('stockInfo').innerHTML = `
+//         <h5>${data["Global Quote"]["01. symbol"]}</h5>
+//         <p id="text">${["Global Quote"]["05. price"}</p>
+//         <p id = "text"> buy / Sell </p>
+//         `
+
+
+
 const API_key = "9D9QUG0FRKAE9VJ8";
 let stock = 'AAPL'
 let button = document.getElementById('button');
