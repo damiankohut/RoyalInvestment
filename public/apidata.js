@@ -31,15 +31,7 @@ function getstock(stocky){
 `
 })
 }
-//        <h5>${data["Global Quote"]["01. symbol"]}</h5>
-//  <h4 id="text">${data["Global Quote"]["05. price"]}</h4>
-//  <button id = "text"> buy / Sell </button>
 
-//         document.getElementById('stockInfo').innerHTML = `
-//         <h5>${data["Global Quote"]["01. symbol"]}</h5>
-//         <p id="text">${["Global Quote"]["05. price"}</p>
-//         <p id = "text"> buy / Sell </p>
-//         `
 
 
 
