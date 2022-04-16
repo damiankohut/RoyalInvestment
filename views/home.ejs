@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <a href="/users/logout">Log out</a>
+    <h1>Hello <%=  user %></h1>
+    <h2>You account balance is : <%=  balance %> </h2>
+    <ul>
+    <% portfolio.forEach(stock => { %>
+        <li> <%= stock.tickername %> </li>
+   <% }) %>   
+    </ul>
+    <!-- BUY FEATURE -->
+    <!-- need to create a search bar to get the tickname from the user -->
+    <!-- use dom manipulation to get the value from the search in the apidata.js file -->
+    <!-- fetch to the outside api which is alphavantage using the url in the file and instead of {stock} we need to search on the value from the search bar ablove -->
+    <!-- send the data we recieve from the outside api to our server in the backend -->
+    <!-- the server will then send that data to the database so it will make note of who bought what stock at what price -->
+    <!-- change the account balance to how many stocks were bought * at what price  -->
+
+    <!-- SELL FEATURE -->
+    <script src="../public/apidata.js" type="text/javascript"></script>
+</body>
+</html>
