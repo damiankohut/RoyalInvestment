@@ -1,31 +1,54 @@
 const API_key = "9D9QUG0FRKAE9VJ8";
-let stock = 'AAPL'
-let button = document.getElementById('button');
 
+let tickButton = document.getElementById('tick-button');
+let tickerSearch = document.getElementById('ticker-search');
+let cardInfo = document.getElementById('card-text', renderCardText)
 // fetch('http://localhost:3000/users/home')
 // .then(res => res.json())
 // .then(data => console.log(data))
 
-button.addEventListener('click', async () => {
-    sendPrice();
+tickButton.addEventListener('click', () => {
+    getPrice(tickerSearch.value);
     // getPortfolio()
+
 })
 
-// async function getPrice() {
-//     let price = await fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stock}&apikey=${API_key}`)
+async function renderCardText(stock) {
+    const url = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol="
+    let price = await fetch(url+ stock +"&apikey=" + API_key)
+    .then(res => res.json())
+    .then(data => {
+        return data["Global Quote"]["02. open"]["03. high"]["04. low"]["04. low"]["05. price"]["06. volume"]
+     
+});
+}
+
+
+// async function getPrice(stock) {
+//     const url = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol="
+//     let price = await fetch(url+ stock +"&apikey=" + API_key)
 //     .then(res => res.json())
-//     .then(data => data["Global Quote"]["05. price"]);
-//      return price;
+//     .then(data => {
+//         return data["Global Quote"]["05. price"]
+//       console.log(price)
+// });
 // }
+
+
 // async function getprice(){
 
 // }
 // let price = getprice()
- async function sendPrice () {
-    let price = await fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stock}&apikey=${API_key}`)
+ async function getPrice(stock) {
+    const url = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol="
+    let price = await fetch(url+ stock +"&apikey=" + API_key)
     .then(res => res.json())
-    .then(data => data["Global Quote"]["05. price"]);
+    .then(data => { 
+       return data["Global Quote"]["05. price"]
+        
+    });
     console.log(price)
+
      fetch('http://localhost:3000/users/home', {
         method: 'POST',
         headers: {
@@ -39,8 +62,10 @@ button.addEventListener('click', async () => {
     })
     .then(res => res.json())
     .then(data => console.log(data));
-    console.log("price")
+    
 }
+
+
 
 
 // function getPortfolio(){
