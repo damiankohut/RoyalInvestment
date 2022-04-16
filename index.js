@@ -106,10 +106,18 @@ app.post('/users/login', passport.authenticate('local', {
 }))
 
 app.post('/users/home', async (req, res) => {
-let {stockName, } =req.body;
+let {stockName } =req.body;
 })
 
-
+app.post("/users/home/buy", checkNotAuthenticated, async (req, res) => {
+    const {stockName,price,quantity} = req.body;
+    const userid = req.user.id
+    pool.query(" INSERT INTO public.user_stocks (tickername, quantity_of_stocks, buy_price, sell_price, user_id) VALUES ($1, $2, $3, null, $4)", [stockName, quantity, price, userid])
+    const stockbalance = req.user.account_balance
+    const updatePrice = stockbalance - price * quantity
+    pool.query("UPDATE public.user SET account_balance = $1 WHERE id = $2; ", [updatePrice, userid])
+    res.redirect('/users/home');
+})
 
 
 

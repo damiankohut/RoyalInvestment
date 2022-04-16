@@ -1,11 +1,18 @@
+const API_key = "9D9QUG0FRKAE9VJ8";
 window.addEventListener('DOMContentLoaded', () => {
     const work = document.getElementById("submit2");
     work.addEventListener('click', stockFinder )
+
+
+
    })
-   function stockFinder() {
+
+
+function stockFinder() {
     const input2 = document.getElementById('code2');
     getstock(input2.value)
 }
+
 
 function getstock(stocky){
     fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${stocky}&apikey=9D9QUG0FRKAE9VJ8`)
@@ -14,28 +21,40 @@ function getstock(stocky){
     }).then(function(data){ console.log(data["Global Quote"]["05. price"]), console.log(data["Global Quote"]["01. symbol"]), console.log(console.log(data))
  document.getElementById('stockInfo').innerHTML = `
  <div class="container" style="padding-left: 0px;padding-right: 0px;">
- <div class="row" style="width: 1500px;margin-right: 0px;margin-left: 0px;">
- <div class="col-md-4 col-xl-3" style="">
-     <div class="card bg-c-blue order-card">
-         <div class="card-block">
-             <h6 class="m-b-20" id="">${data["Global Quote"]["01. symbol"]}</h6>
-             <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span>${data["Global Quote"]["05. price"]}</span></h2>
-             <p class="m-b-0"><button id="text"> Buy </button><span class="f-right"><label for="tentacles">Number of stocks:</label>
-             <input type="number" id="tentacles" name="tentacles" min="10" max="100"></span></p>
-             <p class="m-b-0"><button id="text"> Sell </button><span class="f-right"><label for="tentacles">Number of stocks:</label>
-             <input type="number" id="tentacles" name="tentacles" min="10" max="100"></span></p>
-         </div>
-     </div>
- </div>
-</div>
+        <div class="row" style="width: 1500px;margin-right: 0px;margin-left: 0px;">
+        <div class="col-md-4 col-xl-3" style="">
+            <div class="card bg-c-blue order-card">
+                <div class="card-block">
+                    <h6 class="m-b-20" id="stockName">${data["Global Quote"]["01. symbol"]}</h6>
+                    <h2 class="text-right"><i class="fa fa-cart-plus f-left"></i><span id="stockPrice">${data["Global Quote"]["05. price"]}</span></h2>
+                    <p class="m-b-0"><button id="buy"> Buy </button><span class="f-right"><label for="tentacles" >Number of stocks:</label>
+                    <input type= "number" id="buyAmount" name="tentacles" min="10" max="100"></span></p>
+                    <p class="m-b-0"><button id="sell">Sell</button><span class="f-right"><label for="tentacles">Number of stocks:</label>
+                    <input type="number" id="sellAmount" name="tentacles" min="10" max="100"></span></p>
+                </div>
+            </div>
+        </div>
+       </div>
 `
+const buyButton = document.getElementById('buy');
+buyButton.addEventListener('click', buystock)
 })
+}
+
+function buystock(){
+   
+    const buyAmount = document.getElementById('buyAmount');
+    const stockPrice = document.getElementById('stockPrice');
+    const stockName = document.getElementById('stockName');
+    sendBuyOrder(stockName.textContent, buyAmount.value, stockPrice.textContent)
+    console.log(stockName.textContent, buyAmount.value, stockPrice.textContent);
+
+
+
 }
 
 
 
-
-const API_key = "9D9QUG0FRKAE9VJ8";
 
 let tickButton = document.getElementById('tick-button');
 let tickerSearch = document.getElementById('ticker-search');
@@ -61,32 +80,16 @@ async function renderCardText(stock) {
 }
 
 
-// async function getPrice(stock) {
-//     const url = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol="
-//     let price = await fetch(url+ stock +"&apikey=" + API_key)
-//     .then(res => res.json())
-//     .then(data => {
-//         return data["Global Quote"]["05. price"]
-//       console.log(price)
-// });
-// }
 
 
-// async function getprice(){
 
-// }
-// let price = getprice()
- async function getPrice(stock) {
-    const url = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol="
-    let price = await fetch(url+ stock +"&apikey=" + API_key)
-    .then(res => res.json())
-    .then(data => { 
-       return data["Global Quote"]["05. price"]
-        
-    });
-    console.log(price)
 
-     fetch('http://localhost:3000/users/home', {
+
+
+
+ async function sendBuyOrder(stock,quantity,price) {
+
+     fetch('http://localhost:3000/users/home/buy', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -94,7 +97,8 @@ async function renderCardText(stock) {
         },
         body: JSON.stringify({
             stockName: stock,
-            price: price
+            price: price,
+            quantity: quantity
         })
     })
     .then(res => res.json())
