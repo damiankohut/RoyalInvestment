@@ -116,7 +116,7 @@ app.post("/users/home/buy", checkNotAuthenticated, async (req, res) => {
     const stockbalance = req.user.account_balance
     const updatePrice = stockbalance - price * quantity
     pool.query("UPDATE public.user SET account_balance = $1 WHERE id = $2; ", [updatePrice, userid])
-    res.redirect('/users/home');
+    res.redirect('back');
 })
 
 app.post("/users/home/sell", checkNotAuthenticated, async (req, res) => {
@@ -127,7 +127,7 @@ app.post("/users/home/sell", checkNotAuthenticated, async (req, res) => {
     const updatePrice = Number(stockbalance) + Number(stockPrice) * quantity;
     pool.query("UPDATE public.user SET account_balance = $1 WHERE id = $2  ", [updatePrice, userid])
     pool.query(" DELETE FROM user_stocks WHERE public.user_stocks.tickername = $1 AND public.user_stocks.user_id = $2", [stockName, userid])
-    res.redirect('/users/home');
+    res.redirect('back');
 })
 
 

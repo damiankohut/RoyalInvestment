@@ -3,9 +3,9 @@ const { Pool } = require('pg')
 
 
 const connectionDevelopment = {
-  user: 'kayla',
-  database: 'userAuth',
-  password: '123',                  // If you have a postgres password, write it here
+  user: 'postgres',
+  database: 'royal_investments',
+  password: 'Parnasala1!',                  // If you have a postgres password, write it here
   host: 'localhost',
   port: 5432
 };
