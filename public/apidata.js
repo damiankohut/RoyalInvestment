@@ -39,7 +39,7 @@ function getstock(stocky){
 const buyButton = document.getElementById('buy');
 buyButton.addEventListener('click', buystock)
 const sellButton = document.getElementById('sell');
-sellButton.addEventListener('click', sellstock )
+sellButton.addEventListener('click', sellstock)
 })
 }
 
@@ -60,7 +60,7 @@ function sellstock(){
     const stockPrice = document.getElementById('stockPrice')
     const stockName = document.getElementById('stockName')
     sendSellOrder(stockName.textContent, sellAmount.value, stockPrice.textContent)
-    console.log(stockName.textContent, sellAmount.value, stockPrice.textContent)
+    // console.log(stockName.textContent, sellAmount.value, stockPrice.textContent)
 }
 
 

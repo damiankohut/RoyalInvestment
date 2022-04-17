@@ -123,10 +123,10 @@ app.post("/users/home/sell", checkNotAuthenticated, async (req, res) => {
     const {stockName,price,quantity} = req.body;
     const userid = req.user.id
     const stockbalance = req.user.account_balance
-    const stockPrice = req.body.price;
-    const updatePrice = stockbalance + stockPrice;
+    const stockPrice = price;
+    const updatePrice = Number(stockbalance) + Number(stockPrice) * quantity;
     pool.query("UPDATE public.user SET account_balance = $1 WHERE id = $2  ", [updatePrice, userid])
-    pool.query(" DELETE FROM user_stocks (tickername, quantity_of_stocks, buy_price, sell_price, user_id) VALUES ($1, $2, $3, $4, $5)", [stockName, quantity, price, userid])
+    pool.query(" DELETE FROM user_stocks WHERE public.user_stocks.tickername = $1 AND public.user_stocks.user_id = $2", [stockName, userid])
     res.redirect('/users/home');
 })
 
