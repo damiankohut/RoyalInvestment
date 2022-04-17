@@ -7,9 +7,9 @@
   development: {
     client: 'pg',
     connection: {
-      database: 'royal_investments',
-      user: 'postgres',
-      password: 'damian'
+      database: 'userAuth',
+      user: 'kayla',
+      password: '123'
     }
   },
   production: {

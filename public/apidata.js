@@ -38,6 +38,8 @@ function getstock(stocky){
 `
 const buyButton = document.getElementById('buy');
 buyButton.addEventListener('click', buystock)
+const sellButton = document.getElementById('sell');
+sellButton.addEventListener('click', sellstock )
 })
 }
 
@@ -47,10 +49,18 @@ function buystock(){
     const stockPrice = document.getElementById('stockPrice');
     const stockName = document.getElementById('stockName');
     sendBuyOrder(stockName.textContent, buyAmount.value, stockPrice.textContent)
-    console.log(stockName.textContent, buyAmount.value, stockPrice.textContent);
+    // console.log(stockName.textContent, buyAmount.value, stockPrice.textContent);
 
-
-
+}
+//get all the parts of the sell element by the id
+//have to do a fetch to get the current price (selling at current stock price)
+//make a sendsellOrder() and post request to users/home/sell.....use index.js to make an app.post and update the database
+function sellstock(){
+    const sellAmount = document.getElementById('sellAmount')
+    const stockPrice = document.getElementById('stockPrice')
+    const stockName = document.getElementById('stockName')
+    sendSellOrder(stockName.textContent, sellAmount.value, stockPrice.textContent)
+    console.log(stockName.textContent, sellAmount.value, stockPrice.textContent)
 }
 
 
@@ -80,13 +90,6 @@ async function renderCardText(stock) {
 }
 
 
-
-
-
-
-
-
-
  async function sendBuyOrder(stock,quantity,price) {
 
      fetch('http://localhost:3000/users/home/buy', {
@@ -104,6 +107,25 @@ async function renderCardText(stock) {
     .then(res => res.json())
     .then(data => console.log(data));
     
+}
+
+async function sendSellOrder(stock, quantity,price){
+
+    fetch('http://localhost:3000/users/home/sell', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            stockName: stock,
+            price: price,
+            quantity: quantity
+        })
+    })
+    .then(res => res.json())
+    .then(data => console.log(data));
+
 }
 
 
