@@ -36,9 +36,15 @@ function getstock(stocky){
                 </div>
 `
         const buyButton = document.getElementById('buy');
-        buyButton.addEventListener('click', buystock)
+        buyButton.addEventListener('click', () => {
+            buystock();
+            location.assign('/users/home');
+        })
         const sellButton = document.getElementById('sell');
-        sellButton.addEventListener('click', sellstock)
+        sellButton.addEventListener('click', () => {
+            sellstock();
+            loction.assign('/users/home');
+        })
     })
 }
 
@@ -90,7 +96,8 @@ async function sendBuyOrder(stock,quantity,price) {
     })
     .then(res => res.json())
     .then(data =>  console.log("hello this is my data", data));
-    window.location.assign('/users/home')
+    // location.reload();
+    // window.location.assign('/users/home')
 }
 
 async function sendSellOrder(stock, quantity,price){
@@ -109,5 +116,6 @@ async function sendSellOrder(stock, quantity,price){
     })
     .then(res => res.json())
     .then(data => console.log(data));
-    window.location.assign('/users/home')
+    // location.reload()
+    // window.location.assign('/users/home')
 }
