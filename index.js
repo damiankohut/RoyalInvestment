@@ -53,7 +53,7 @@ app.get('/users/game', checkNotAuthenticated, async (req, res) => {
 
 // =============================did this
 app.get('/users/home', checkNotAuthenticated, async (req, res) => {
-    const portfolioData = await pool.query('SELECT tickername, buy_price FROM public.user_stocks JOIN public.user ON public.user.id = public.user_stocks.user_id WHERE public.user_stocks.user_id = $1', [req.user.id]).then(result => result.rows)
+    const portfolioData = await pool.query('SELECT tickername, buy_price, quantity_of_stocks FROM public.user_stocks JOIN public.user ON public.user.id = public.user_stocks.user_id WHERE public.user_stocks.user_id = $1', [req.user.id]).then(result => result.rows)
     console.log(portfolioData)
     res.render('home', {user: req.user.name, balance: req.user.account_balance, portfolio : portfolioData})
 
