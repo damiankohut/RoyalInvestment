@@ -1,15 +1,19 @@
+// import { config } from '../urlConstants';
+
+// const url = config.url;
 const API_key = "9D9QUG0FRKAE9VJ8";
 
 
 window.addEventListener('DOMContentLoaded', () => {
     const work = document.getElementById("submit2");
-    work.addEventListener('click', stockFinder )
+    work.addEventListener('click', stockFinder)
 
 })
 
 
 function stockFinder() {
     const input2 = document.getElementById('code2');
+    console.log("im here")
     getstock(input2.value)
 }
 
@@ -70,20 +74,9 @@ function sellstock(){
 }
 
 
-async function renderCardText(stock) {
-    const url = "https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol="
-    let price = await fetch(url+ stock +"&apikey=" + API_key)
-    .then(res => res.json())
-    .then(data => {
-        return data["Global Quote"]["02. open"]["03. high"]["04. low"]["04. low"]["05. price"]["06. volume"]
-     
-});
-}
-
-
 async function sendBuyOrder(stock,quantity,price) {
 
-     const idk = await fetch('http://localhost:3000/users/home/buy', {
+     const idk = await fetch(`https://royal-investments.herokuapp.com/users/home/buy`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
@@ -103,7 +96,7 @@ async function sendBuyOrder(stock,quantity,price) {
 
 async function sendSellOrder(stock, quantity,price){
 
-    const idk = await fetch('http://localhost:3000/users/home/sell', {
+    const idk = await fetch(`https://royal-investments.herokuapp.com/users/home/sell`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',

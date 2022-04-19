@@ -1,3 +1,5 @@
+// import { config } from '../urlConstants';
+// const url = config.url;
 
 document.getElementById("submit").addEventListener("click", onSubmit);
 document.getElementById("clear").addEventListener("click", clear);
@@ -31,7 +33,7 @@ function lostMoney(){
 
 
 async function sendLostMoney (moneyLost) {
-  const idk = await fetch('http://localhost:3000/users/home/game/lost', {
+  const idk = await fetch(`https://royal-investments.herokuapp.com/users/home/game/lost`, {
       method: 'POST',
       headers: {
           'Accept': 'application/json',
@@ -46,7 +48,7 @@ async function sendLostMoney (moneyLost) {
 }
 
 async function sendGainMoney (moneyGain) {
-    const idk = await fetch('http://localhost:3000/users/home/game/won', {
+    const idk = await fetch(`https://royal-investments.herokuapp.com/users/home/game/won`, {
         method: 'POST',
         headers: {
             'Accept': 'application/json',
