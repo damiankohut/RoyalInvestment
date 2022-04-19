@@ -20,7 +20,7 @@ form {
 }
 
 .mainBody {
-    height: 100vh;
+    height: 100%;
     width: 80%;
     margin: auto;
     background-color: whitesmoke;

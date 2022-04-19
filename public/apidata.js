@@ -4,6 +4,7 @@ const API_key = "9D9QUG0FRKAE9VJ8";
 window.addEventListener('DOMContentLoaded', () => {
     const work = document.getElementById("submit2");
     work.addEventListener('click', stockFinder )
+
 })
 
 
@@ -37,14 +38,15 @@ function getstock(stocky){
 `
         const buyButton = document.getElementById('buy');
         buyButton.addEventListener('click', () => {
-            buystock();
-            location.assign('/users/home');
-        })
+            buystock()
+        loaction.reload()
+    })
         const sellButton = document.getElementById('sell');
-        sellButton.addEventListener('click', () => {
-            sellstock();
-            loction.assign('/users/home');
-        })
+        sellButton.addEventListener('click',  () => {
+           sellstock()
+            location.reload();
+    })
+
     })
 }
 
@@ -59,13 +61,12 @@ function buystock(){
 }
 //get all the parts of the sell element by the id
 //have to do a fetch to get the current price (selling at current stock price)
-//make a sendsellOrder() and post request to users/home/sell.....use index.js to make an app.post and update the database
 function sellstock(){
     const sellAmount = document.getElementById('sellAmount')
     const stockPrice = document.getElementById('stockPrice')
     const stockName = document.getElementById('stockName')
     sendSellOrder(stockName.textContent, sellAmount.value, stockPrice.textContent)
-    // console.log(stockName.textContent, sellAmount.value, stockPrice.textContent)
+     console.log(stockName.textContent, sellAmount.value, stockPrice.textContent)
 }
 
 
@@ -96,8 +97,8 @@ async function sendBuyOrder(stock,quantity,price) {
     })
     .then(res => res.json())
     .then(data =>  console.log("hello this is my data", data));
-    // location.reload();
-    // window.location.assign('/users/home')
+    window.location.assign('/users/home')
+    location.reload()
 }
 
 async function sendSellOrder(stock, quantity,price){
@@ -116,6 +117,7 @@ async function sendSellOrder(stock, quantity,price){
     })
     .then(res => res.json())
     .then(data => console.log(data));
-    // location.reload()
-    // window.location.assign('/users/home')
+    window.location.assign('/users/home')
+    location.reload()
+    console.log("hello")
 }

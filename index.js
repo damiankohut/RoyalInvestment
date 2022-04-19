@@ -44,6 +44,14 @@ app.get('/users/login', checkAuthenticated, (req, res) => {
     res.render('login')
 })
 
+
+app.get('/users/game', checkNotAuthenticated, async (req, res) => {
+    const portfolioData = await pool.query('SELECT tickername, buy_price FROM public.user_stocks JOIN public.user ON public.user.id = public.user_stocks.user_id WHERE public.user_stocks.user_id = $1', [req.user.id]).then(result => result.rows)
+    console.log(portfolioData)
+    res.render('game', {user: req.user.name, balance: req.user.account_balance, portfolio : portfolioData})
+})
+
+
 app.get('/users/home', checkNotAuthenticated, async (req, res) => {
     const portfolioData = await pool.query('SELECT tickername, buy_price, quantity_of_stocks FROM public.user_stocks JOIN public.user ON public.user.id = public.user_stocks.user_id WHERE public.user_stocks.user_id = $1', [req.user.id]).then(result => result.rows)
     console.log(portfolioData)
@@ -105,32 +113,56 @@ app.post('/users/login', passport.authenticate('local', {
     failureFlash: true
 }))
 
-app.post('/users/home', async (req, res) => {
-let {stockName } =req.body;
-})
 
 app.post("/users/home/buy", checkNotAuthenticated, async (req, res) => {
     const {stockName,price,quantity} = req.body;
     const userid = req.user.id
-    pool.query(" INSERT INTO user_stocks (tickername, quantity_of_stocks, buy_price, sell_price, user_id) VALUES ($1, $2, $3, null, $4)", [stockName, quantity, price, userid])
+    if(price*quantity > req.user.account_balance) {
+        res.json({message: "Not enough fund!"});
+    } else {
+        pool.query(" INSERT INTO user_stocks (tickername, quantity_of_stocks, buy_price, sell_price, user_id) VALUES ($1, $2, $3, null, $4)", [stockName, quantity, price, userid])
+        const stockbalance = req.user.account_balance
+        const updatePrice = stockbalance - price * quantity
+        pool.query("UPDATE public.user SET account_balance = $1 WHERE id = $2; ", [updatePrice, userid])
+        res.redirect('back');
+    }
+})
+
+
+
+app.post("/users/home/game/won", checkNotAuthenticated, async (req, res) => {
+    const userid = req.user.id
+    const {moneyAdded} = req.body
     const stockbalance = req.user.account_balance
-    const updatePrice = stockbalance - price * quantity
-    pool.query("UPDATE public.user SET account_balance = $1 WHERE id = $2; ", [updatePrice, userid])
-    res.redirect('back');
+    const updatePrice = Number(stockbalance) + Number(moneyAdded)
+    await pool.query("UPDATE public.user SET account_balance = $1 WHERE id = $2  ", [updatePrice, userid])
+})
+
+app.post("/users/home/game/lost", checkNotAuthenticated, async (req, res) => {
+    const userid = req.user.id
+    const {moneylost} = req.body
+    const stockbalance = req.user.account_balance
+    const updatePrice = Number(stockbalance) - Number(moneylost)
+    await pool.query("UPDATE public.user SET account_balance = $1 WHERE id = $2  ", [updatePrice, userid])
 })
 
 app.post("/users/home/sell", checkNotAuthenticated, async (req, res) => {
     const {stockName,price,quantity} = req.body;
     const userid = req.user.id
     const stockbalance = req.user.account_balance
-    const stockPrice = price;
-    const updatePrice = Number(stockbalance) + Number(stockPrice) * quantity;
-    pool.query("UPDATE public.user SET account_balance = $1 WHERE id = $2  ", [updatePrice, userid])
-    pool.query(" DELETE FROM user_stocks WHERE public.user_stocks.tickername = $1 AND public.user_stocks.user_id = $2", [stockName, userid])
-    res.redirect('back');
+    const checkStock = await pool.query(
+        'SELECT tickername FROM public.user_stocks WHERE public.user_stocks.tickername = $1 AND public.user_stocks.user_id = $2', [stockName, userid]
+    ).then(result => result.rows);
+    if (checkStock.length === 0) {
+        res.json({message: "You currently don't own that stock."})
+    } else {
+        const stockPrice = price;
+        const updatePrice = Number(stockbalance) + Number(stockPrice) * quantity;
+        pool.query("UPDATE public.user SET account_balance = $1 WHERE id = $2  ", [updatePrice, userid])
+        pool.query(" DELETE FROM user_stocks WHERE public.user_stocks.tickername = $1 AND public.user_stocks.user_id = $2", [stockName, userid])
+        res.redirect('back');
+    }
 })
-
-
 
 
 
