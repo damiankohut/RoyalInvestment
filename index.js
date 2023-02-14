@@ -6,7 +6,6 @@ const flash = require('express-flash');
 const passport = require('passport')
 const initializePassport = require('./passportConfig')
 
-
 const port = process.env.PORT || 3000;
 
 const app = express();
@@ -35,6 +34,51 @@ app.use(express.json());
 app.get('/', (req, res) => {
     res.render('index')
 })
+
+pool.query(
+  `
+  CREATE TABLE IF NOT EXISTS public.user (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    account_balance DECIMAL NOT NULL
+  );
+`,
+  (err, res) => {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log('Created table "users"');
+    }
+  }
+);
+
+// Create the 'user_stocks' table
+pool.query(
+  `
+  CREATE TABLE IF NOT EXISTS public.user_stocks (
+    id SERIAL PRIMARY KEY,
+    tickername VARCHAR(255) NOT NULL,
+    quantity_of_stocks INTEGER NOT NULL,
+    buy_price DECIMAL NOT NULL,
+    sell_price DECIMAL,
+    user_id INTEGER REFERENCES users(id)
+  );
+`,
+  (err, res) => {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log('Created table "user_stocks"');
+    }
+  }
+);
+
+process.on("SIGINT", () => {
+  pool.end();
+  console.log("Pool has ended");
+});
 
 app.get('/users/signup', checkAuthenticated, (req, res) => {
     res.render('signup')
