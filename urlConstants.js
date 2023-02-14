@@ -1,7 +1,7 @@
 // Constants.js
 const production = {
-    url: 'https://royal-investments.herokuapp.com'
-  };
+  url: "royalinvestment-production.up.railway.app",
+};
   const development = {
     url: 'http://localhost:3000'
   };

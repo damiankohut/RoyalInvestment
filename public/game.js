@@ -33,33 +33,39 @@ function lostMoney(){
 
 
 async function sendLostMoney (moneyLost) {
-  const idk = await fetch(`https://royal-investments.herokuapp.com/users/home/game/lost`, {
-      method: 'POST',
+  const idk = await fetch(
+    `royalinvestment-production.up.railway.app/users/home/game/lost`,
+    {
+      method: "POST",
       headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
+        Accept: "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-          moneylost: moneyLost
-      })
-  })
-  .then(res => res.json())
-  .then(data => console.log(data));
+        moneylost: moneyLost,
+      }),
+    }
+  )
+    .then((res) => res.json())
+    .then((data) => console.log(data));
 }
 
 async function sendGainMoney (moneyGain) {
-    const idk = await fetch(`https://royal-investments.herokuapp.com/users/home/game/won`, {
-        method: 'POST',
+    const idk = await fetch(
+      `royalinvestment-production.up.railway.app/users/home/game/won`,
+      {
+        method: "POST",
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+          Accept: "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            moneyAdded: moneyGain
-        })
-    })
-    .then(res => res.json())
-    .then(data => console.log(data));
+          moneyAdded: moneyGain,
+        }),
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => console.log(data));
 }
 
 async function onSubmit() {

@@ -76,40 +76,46 @@ function sellstock(){
 
 async function sendBuyOrder(stock,quantity,price) {
 
-     const idk = await fetch(`https://royal-investments.herokuapp.com/users/home/buy`, {
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            stockName: stock,
-            price: price,
-            quantity: quantity
-        })
-    })
-    .then(res => res.json())
-    .then(data =>  console.log("hello this is my data", data));
+     const idk = await fetch(
+       `royalinvestment-production.up.railway.app/users/home/buy`,
+       {
+         method: "POST",
+         headers: {
+           Accept: "application/json",
+           "Content-Type": "application/json",
+         },
+         body: JSON.stringify({
+           stockName: stock,
+           price: price,
+           quantity: quantity,
+         }),
+       }
+     )
+       .then((res) => res.json())
+       .then((data) => console.log("hello this is my data", data));
     window.location.assign('/users/home')
     location.reload()
 }
 
 async function sendSellOrder(stock, quantity,price){
 
-    const idk = await fetch(`https://royal-investments.herokuapp.com/users/home/sell`, {
-        method: 'POST',
+    const idk = await fetch(
+      `royalinvestment-production.up.railway.app/users/home/sell`,
+      {
+        method: "POST",
         headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
+          Accept: "application/json",
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            stockName: stock,
-            price: price,
-            quantity: quantity
-        })
-    })
-    .then(res => res.json())
-    .then(data => console.log(data));
+          stockName: stock,
+          price: price,
+          quantity: quantity,
+        }),
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => console.log(data));
     window.location.assign('/users/home')
     location.reload()
     console.log("hello")
